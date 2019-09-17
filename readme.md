@@ -1,2 +1,2 @@
-#目標
-- Javascriptで時計を作る
+# 目標
+Javascriptで時計を作る
