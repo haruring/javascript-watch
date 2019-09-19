@@ -15,7 +15,18 @@
        </div>
    </div>
    <script>
-   
+  //現在日時を取得
+let now = new Date();
+let hour = now.getHours();
+let minutes = now.getMinutes();
+let seconds = now.getSeconds();
+console.log(now);
+console.log(360/hour);
+console.log(minutes);
+console.log(seconds);
+const shortHand = document.getElementById('hour');
+
+shortHand.style.transform = 'rotate(' + 360 / 12 * hour +'deg)';
    </script>
 </body>
 </html>
