@@ -14,13 +14,24 @@
             <span id="now"></span>
         </h1>
         <div id="plate">
-            <div id="hour">
-                <figure>
-                    <img src="images/short.png" alt="">
-                </figure>
-            </div>
-            <div id="minute"><img src="images/long.png" alt="分"></div>
-            <div id="second"></div>
+            <figure id="hour">
+                <picture>
+                    <source srcset="images/short@2x.webp" type="image/webp">
+                    <img src="images/short.png" srcset="images/short.png 1x,images/short@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
+            <figure id="minute">
+                <picture>
+                    <source srcset="images/long@2x.webp" type="image/webp">
+                    <img src="images/long.png" srcset="images/long.png 1x,images/long@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
+            <figure id="second">
+                <picture>
+                    <source srcset="images/sec@2x.webp" type="image/webp">
+                    <img src="images/sec.png" srcset="images/sec.png 1x,images/sec@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
         </div>
     </div>
     <script>
@@ -28,31 +39,26 @@
         const hour = document.querySelector('#hour');
         const minute = document.querySelector('#minute');
         const second = document.querySelector('#second');
+        const rotate = 360 / 60;
         const time = () => {
             const now = new Date();
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
+            const hours = rotate * /*now.getHours()*/1;
+            const minutes = rotate * now.getMinutes();
+            const seconds = rotate * now.getSeconds();
             hour.style.transform = `rotate(${hours}deg)`
             minute.style.transform = `rotate(${minutes}deg)`
 
-            console.log(now);
-            console.log(hours);
-            console.log(minutes);
-            console.log(seconds);
-            //console.log(Math.floor(360 / seconds));
-
             currentTime(now)
-            //minutesMove(minutes)
-            //secondsMove(seconds)
+            minutesMove(minutes)
+            secondsMove(seconds)
         }
 
-        //const minutesMove = (minutes) => {
-        //return minute.style.transform = `rotate(${minutes}deg)`
-        //}
-        //const secondsMove = (seconds) => {
-        //return second.style.transform = `rotate(${seconds}deg)`
-        //}
+        const minutesMove = (minutes) => {
+            return minute.style.transform = `rotate(${minutes}deg)`
+        }
+        const secondsMove = (seconds) => {
+            return second.style.transform = `rotate(${seconds}deg)`
+        }
         const currentTime = (now) => {
             return justTime.textContent = `${now}`
         }
