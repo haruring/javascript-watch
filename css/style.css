@@ -24,6 +24,7 @@ img {
     height: 480px;
     margin: auto;
     background: url(../images/plate.png) 0 0/cover no-repeat;
+    overflow: hidden;
 }
 
 #hour,#minute, #second {

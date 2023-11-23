@@ -36,29 +36,24 @@
     </div>
     <script>
         const justTime = document.querySelector('#now');
-        const hour = document.querySelector('#hour');
-        const minute = document.querySelector('#minute');
-        const second = document.querySelector('#second');
-        const rotate = 360 / 60;
+        const short = document.querySelector('#hour');
+        const long = document.querySelector('#minute');
+        const red = document.querySelector('#second');
+        const rotate = 360;
         const time = () => {
             const now = new Date();
-            const hours = rotate * /*now.getHours()*/1;
-            const minutes = rotate * now.getMinutes();
-            const seconds = rotate * now.getSeconds();
-            hour.style.transform = `rotate(${hours}deg)`
-            minute.style.transform = `rotate(${minutes}deg)`
-
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const hourDeg = (hours * 60 + minutes + seconds / 60) * 0.5;
+            const minDeg = rotate / minutes * now.getMinutes();
+            const secDeg = rotate / 60 * now.getSeconds();
+            short.style.transform = `rotate(${hourDeg}deg)`
+            long.style.transform = `rotate(${minDeg}deg)`
+            red.style.transform = `rotate(${secDeg}deg)`
             currentTime(now)
-            minutesMove(minutes)
-            secondsMove(seconds)
         }
 
-        const minutesMove = (minutes) => {
-            return minute.style.transform = `rotate(${minutes}deg)`
-        }
-        const secondsMove = (seconds) => {
-            return second.style.transform = `rotate(${seconds}deg)`
-        }
         const currentTime = (now) => {
             return justTime.textContent = `${now}`
         }
