@@ -46,8 +46,8 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
             const hourDeg = (hours * 60 + minutes + seconds / 60) * 0.5;
-            const minDeg = rotate / minutes * now.getMinutes();
-            const secDeg = rotate / 60 * now.getSeconds();
+            const minDeg = (minutes + seconds / 60) * 6;
+            const secDeg = seconds * 6;
             short.style.transform = `rotate(${hourDeg}deg)`
             long.style.transform = `rotate(${minDeg}deg)`
             red.style.transform = `rotate(${secDeg}deg)`
@@ -55,7 +55,11 @@
         }
 
         const currentTime = (now) => {
-            return justTime.textContent = `${now}`
+            return justTime.textContent = Intl.DateTimeFormat('ja-JP', {
+                dateStyle: 'full',
+                timeStyle: 'long',
+                timeZone: 'Asia/Tokyo'
+            }).format(now)
         }
         setInterval(time, 1000)
     </script>
