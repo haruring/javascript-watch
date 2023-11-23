@@ -1,21 +1,68 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Javascript時計</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-   <div class="container">
-   <h1>Javascriptで時計</h1> 
-       <div id="plate">
-           <div id="hour"><img src="images/long.png" alt="時"></div>
-           <div id="minute"><img src="images/short.png" alt="分"></div>
-           <div id="second"></div>
-       </div>
-   </div>
-   <script>
-   
-   </script>
+    <div class="container">
+        <h1>Javascriptで時計
+            <span id="now"></span>
+        </h1>
+        <div id="plate">
+            <figure id="hour">
+                <picture>
+                    <source srcset="images/short@2x.webp" type="image/webp">
+                    <img src="images/short.png" srcset="images/short.png 1x,images/short@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
+            <figure id="minute">
+                <picture>
+                    <source srcset="images/long@2x.webp" type="image/webp">
+                    <img src="images/long.png" srcset="images/long.png 1x,images/long@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
+            <figure id="second">
+                <picture>
+                    <source srcset="images/sec@2x.webp" type="image/webp">
+                    <img src="images/sec.png" srcset="images/sec.png 1x,images/sec@2x.png 2x" alt="" width="480" height="480">
+                </picture>
+            </figure>
+        </div>
+    </div>
+    <script>
+        const justTime = document.querySelector('#now');
+        const short = document.querySelector('#hour');
+        const long = document.querySelector('#minute');
+        const red = document.querySelector('#second');
+        const rotate = 360;
+        const time = () => {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const hourDeg = (hours * 60 + minutes + seconds / 60) * 0.5;
+            const minDeg = (minutes + seconds / 60) * 6;
+            const secDeg = seconds * 6;
+            short.style.transform = `rotate(${hourDeg}deg)`
+            long.style.transform = `rotate(${minDeg}deg)`
+            red.style.transform = `rotate(${secDeg}deg)`
+            currentTime(now)
+        }
+
+        const currentTime = (now) => {
+            return justTime.textContent = Intl.DateTimeFormat('ja-JP', {
+                dateStyle: 'full',
+                timeStyle: 'long',
+                timeZone: 'Asia/Tokyo'
+            }).format(now)
+        }
+        setInterval(time, 1000)
+    </script>
 </body>
+
 </html>
